@@ -16,6 +16,7 @@ public class App
         lista.agregar("chao dx");
         lista.agregarEnPosicion("Hey", 1);
         lista.agregarAlInicio("Hola");
+        lista.agregarAlInicio("Hola de nuevo");
 
         //Prueba de Muestra de los Datos
         System.out.println(lista);
@@ -34,5 +35,21 @@ public class App
 
         lista.eliminarUltimo();
         System.out.println(lista);
+
+        lista.eliminar("hola xd");
+        System.out.println(lista);
+
+        //Prueba de Búsqueda
+        System.out.println(lista.contiene("que tal"));
+        System.out.println(lista.contiene("Hey"));
+
+        lista.agregarAlInicio("hola xd");
+        lista.agregar("chao dx");
+
+        System.out.println(lista);
+
+        System.out.println(lista.buscar("chao xd"));
+        System.out.println(lista.buscar("chao dx"));
+
     }
 }

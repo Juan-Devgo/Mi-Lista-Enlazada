@@ -152,6 +152,25 @@ public class MiLinkedList<T> {
         }
     }
 
+    public void eliminar(T elemento) {
+        if(tamanio > 0) {
+
+            if(cabeza.getElemento().equals(elemento)) {
+                cabeza = cabeza.getSiguiente();
+                tamanio--;
+            }
+
+            Nodo<T> nodoRecorrido = cabeza;
+            while (nodoRecorrido.getSiguiente() != null) {
+                if(elemento.equals(nodoRecorrido.getSiguiente().getElemento())) {
+                    nodoRecorrido.setSiguiente(nodoRecorrido.getSiguiente().getSiguiente());
+                    tamanio--;
+                }
+            }
+
+        }
+    }
+
     public void eliminarPrimero() {
         if(tamanio > 0) {
             cabeza = cabeza.getSiguiente();
@@ -170,5 +189,47 @@ public class MiLinkedList<T> {
             nodoRecorrido.setSiguiente(null);
             tamanio--;
         }
+    }
+
+    //TAD Buscar
+
+    public int buscar(T elemento) {
+
+        int pos = -1;
+        if(tamanio > 0){
+
+            Nodo<T> nodoRecorrido = cabeza;
+            for (int i = 0; i < tamanio; i++) {
+
+                if(nodoRecorrido.getElemento().equals(elemento)) {
+                    pos = i;
+                    break;
+                }
+
+                nodoRecorrido = nodoRecorrido.getSiguiente();
+            }
+        }
+
+        return pos;
+    }
+
+    public boolean contiene(T elemento) {
+
+        boolean contiene = false;
+        if(tamanio > 0){
+
+            Nodo<T> nodoRecorrido = cabeza;
+            while (nodoRecorrido.getSiguiente() != null) {
+
+                if(nodoRecorrido.getElemento().equals(elemento)) {
+                    contiene = true;
+                    break;
+                }
+
+                nodoRecorrido = nodoRecorrido.getSiguiente();
+            }
+        }
+
+        return contiene;
     }
 }
