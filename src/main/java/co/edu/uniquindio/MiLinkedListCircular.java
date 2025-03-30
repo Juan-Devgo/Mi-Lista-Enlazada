@@ -1,11 +1,13 @@
 package co.edu.uniquindio;
 
-public class MiLinkedList<T> {
+public class MiLinkedListCircular<T> {
     private Nodo<T> cabeza;
+    private Nodo<T> cola;
     private int tamanio;
 
-    public MiLinkedList() {
+    public MiLinkedListCircular() {
         cabeza = null;
+        cola = null;
         tamanio = 0;
     }
 
@@ -15,7 +17,8 @@ public class MiLinkedList<T> {
     public String toString() {
         Nodo<T> nodoRecorrido = cabeza; StringBuilder lista = new StringBuilder(); lista.append("[");
         if(cabeza != null) {
-            while (nodoRecorrido.getSiguiente() != null) {
+
+            for (int i = 0; i < tamanio - 1; i++) {
                 lista.append(nodoRecorrido).append(", ");
                 nodoRecorrido = nodoRecorrido.getSiguiente();
             }
@@ -28,46 +31,61 @@ public class MiLinkedList<T> {
 
     public void agregar(T elemento) {
         Nodo<T> nuevoNodo = new Nodo<>(elemento);
-        if (cabeza != null) {
-            Nodo<T> nodoRecorrido = cabeza;
-            while (nodoRecorrido.getSiguiente() != null) {
-                nodoRecorrido = nodoRecorrido.getSiguiente();
-            }
-            nodoRecorrido.setSiguiente(nuevoNodo);
+        if (cabeza != null && cola != null) {
+            cola.setSiguiente(nuevoNodo);
+            nuevoNodo.setSiguiente(cabeza);
+            cola = nuevoNodo;
             tamanio++;
             return;
         }
 
         cabeza = nuevoNodo;
+        cola = nuevoNodo;
+        cola.setSiguiente(cabeza);
         tamanio++;
     }
 
     public void agregarAlInicio(T elemento) {
         Nodo<T> nuevoNodo = new Nodo<>(elemento);
-        nuevoNodo.setSiguiente(cabeza);
+
+        if(cabeza != null && cola != null) {
+            nuevoNodo.setSiguiente(cabeza);
+            cabeza = nuevoNodo;
+            cola.setSiguiente(cabeza);
+            tamanio++;
+            return;
+        }
+
         cabeza = nuevoNodo;
+        cola = nuevoNodo;
+        cola.setSiguiente(cabeza);
         tamanio++;
     }
 
     public void agregarEnPosicion(T elemento, int posicion) {
-        if(tamanio > posicion && posicion >= 0) {
-
-            Nodo<T> nuevoNodo = new Nodo<>(elemento);
+        if(tamanio >= posicion && posicion >= 0) {
 
             if(posicion == 0){
-                nuevoNodo.setSiguiente(cabeza);
-                cabeza = nuevoNodo;
-                tamanio++;
+                agregarAlInicio(elemento);
                 return;
             }
 
+            if(posicion == tamanio){
+                agregar(elemento);
+                return;
+            }
+
+            Nodo<T> nuevoNodo = new Nodo<>(elemento);
             Nodo<T> nodoRecorrido = cabeza;
+
             for (int i = 0; i < posicion - 1; i++) {
                 nodoRecorrido = nodoRecorrido.getSiguiente();
             }
+
             nuevoNodo.setSiguiente(nodoRecorrido.getSiguiente());
             nodoRecorrido.setSiguiente(nuevoNodo);
             tamanio++;
+
         } else {
             throw new IndexOutOfBoundsException();
         }
@@ -114,15 +132,9 @@ public class MiLinkedList<T> {
         T elemento = null;
 
         if(tamanio != 0) {
-
-            Nodo<T> nodoRecorrido = cabeza;
-
-            while (nodoRecorrido.getSiguiente() != null) {
-                nodoRecorrido = nodoRecorrido.getSiguiente();
-            }
-
-            elemento = nodoRecorrido.getElemento();
+            elemento = cola.getElemento();
         }
+
         return elemento;
     }
 
@@ -134,9 +146,11 @@ public class MiLinkedList<T> {
 
                 if (posicion == 0) {
                     cabeza = cabeza.getSiguiente();
+                    cola.setSiguiente(cabeza);
                     tamanio--;
                     return;
                 }
+
 
                 Nodo<T> nodoRecorrido = cabeza;
                 for (int i = 0; i < posicion - 1; i++) {
@@ -144,7 +158,12 @@ public class MiLinkedList<T> {
                 }
 
                 nodoRecorrido.setSiguiente(nodoRecorrido.getSiguiente().getSiguiente());
+
+                if(posicion == tamanio - 1){
+                    cola = nodoRecorrido;
+                }
                 tamanio--;
+
 
             } else {
                 throw new IndexOutOfBoundsException();
@@ -157,23 +176,29 @@ public class MiLinkedList<T> {
 
             if(cabeza.getElemento().equals(elemento)) {
                 cabeza = cabeza.getSiguiente();
+                cola.setSiguiente(cabeza);
                 tamanio--;
+                return;
             }
 
             Nodo<T> nodoRecorrido = cabeza;
-            while (nodoRecorrido.getSiguiente() != null) {
+            while (!nodoRecorrido.getSiguiente().equals(cabeza)) {
                 if(elemento.equals(nodoRecorrido.getSiguiente().getElemento())) {
                     nodoRecorrido.setSiguiente(nodoRecorrido.getSiguiente().getSiguiente());
                     tamanio--;
+
+                    if(nodoRecorrido.getSiguiente().equals(cabeza)){
+                        cola = nodoRecorrido;
+                    }
                 }
             }
-
         }
     }
 
     public void eliminarPrimero() {
         if(tamanio > 0) {
             cabeza = cabeza.getSiguiente();
+            cola.setSiguiente(cabeza);
             tamanio--;
         }
     }
@@ -182,11 +207,12 @@ public class MiLinkedList<T> {
         if(tamanio > 0) {
 
             Nodo<T> nodoRecorrido = cabeza;
-            while (nodoRecorrido.getSiguiente().getSiguiente() != null) {
+            while (!nodoRecorrido.getSiguiente().getSiguiente().equals(cabeza)) {
                 nodoRecorrido = nodoRecorrido.getSiguiente();
             }
 
-            nodoRecorrido.setSiguiente(null);
+            cola = nodoRecorrido;
+            nodoRecorrido.setSiguiente(cabeza);
             tamanio--;
         }
     }
@@ -216,16 +242,15 @@ public class MiLinkedList<T> {
     public boolean contiene(T elemento) {
 
         boolean contiene = false;
-        if(tamanio > 0) {
+        if(tamanio > 0){
 
-            if (cabeza.getElemento().equals(elemento)) {
+            if(cabeza.getElemento().equals(elemento)) {
 
                 contiene = true;
 
-            } else {
+            }else {
                 Nodo<T> nodoRecorrido = cabeza;
-
-                while (nodoRecorrido.getSiguiente() != null) {
+                while (!nodoRecorrido.getSiguiente().equals(cabeza)) {
 
                     if (nodoRecorrido.getElemento().equals(elemento)) {
                         contiene = true;
