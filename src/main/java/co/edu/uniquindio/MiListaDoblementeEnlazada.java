@@ -20,8 +20,11 @@ public class MiListaDoblementeEnlazada<T> {
                 lista.append(actual).append(", ");
                 actual = actual.getSiguiente();
             }
+            lista.append(actual);
+        } else {
+            lista.append(" ");
         }
-        lista.append(actual).append("]");
+        lista.append("]");
         return lista.toString();
     }
 

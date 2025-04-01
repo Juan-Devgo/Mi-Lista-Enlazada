@@ -22,8 +22,11 @@ public class MiLinkedListCircular<T> {
                 lista.append(nodoRecorrido).append(", ");
                 nodoRecorrido = nodoRecorrido.getSiguiente();
             }
+            lista.append(nodoRecorrido);
+        } else {
+            lista.append(" ");
         }
-        lista.append(nodoRecorrido).append("]");
+        lista.append("]");
         return lista.toString();
     }
 
