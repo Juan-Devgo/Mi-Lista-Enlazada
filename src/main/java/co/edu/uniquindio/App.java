@@ -8,8 +8,8 @@ public class App
 {
     public static void main( String[] args ) {
 
-        //Creación de la listaCircular
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$ Lista Simple $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        //Creación de la Lista Simple
         MiLinkedList<String> lista = new MiLinkedList<>();
 
         //Pruebas de Insersión
@@ -54,7 +54,7 @@ public class App
 
 
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$ Lista Circular $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-        //Creación de la listaCircular circular
+        //Creación de la Lista Circular
         MiLinkedListCircular<String> listaCircular = new MiLinkedListCircular<>();
 
         //Pruebas de Insersión
@@ -97,6 +97,51 @@ public class App
 
         System.out.println(listaCircular.buscar("4"));
         System.out.println(listaCircular.buscar("1"));
+
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$ Lista Doblemente Enlazada $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        //Creación de la listaDoble circular
+        MiListaDoblementeEnlazada<String> listaDoble = new MiListaDoblementeEnlazada<>();
+
+        //Pruebas de Insersión
+        listaDoble.agregarAlInicio("1");
+        listaDoble.agregar("3");
+        listaDoble.agregarEnPosicion("2", 1);
+        listaDoble.agregarAlInicio("0");
+        listaDoble.agregarAlInicio("-1");
+
+
+        //Prueba de Muestra de los Datos
+        System.out.println(listaDoble);
+
+        //Prueba de Obtención de los Datos
+        System.out.println(listaDoble.obtener(2));
+        System.out.println(listaDoble.obtenerPrimero());
+        System.out.println(listaDoble.obtenerUltimo());
+
+        //Prueba de Eliminación de Datos
+        listaDoble.eliminarPosicion(1);
+        System.out.println(listaDoble);
+
+        listaDoble.eliminarPrimero();
+        System.out.println(listaDoble);
+
+        listaDoble.eliminarUltimo();
+        System.out.println(listaDoble);
+
+        listaDoble.eliminar("1");
+        System.out.println(listaDoble);
+
+        //Prueba de Búsqueda
+        System.out.println(listaDoble.contiene("1"));
+        System.out.println(listaDoble.contiene("2"));
+
+        listaDoble.agregarAlInicio("1");
+        listaDoble.agregar("3");
+
+        System.out.println(listaDoble);
+
+        System.out.println(listaDoble.buscar("4"));
+        System.out.println(listaDoble.buscar("1"));
 
     }
 }

@@ -165,7 +165,9 @@ public class MiLinkedList<T> {
                 if(elemento.equals(nodoRecorrido.getSiguiente().getElemento())) {
                     nodoRecorrido.setSiguiente(nodoRecorrido.getSiguiente().getSiguiente());
                     tamanio--;
+                    break;
                 }
+                nodoRecorrido = nodoRecorrido.getSiguiente();
             }
 
         }
