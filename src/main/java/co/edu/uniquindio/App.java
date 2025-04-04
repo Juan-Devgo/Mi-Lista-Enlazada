@@ -143,5 +143,117 @@ public class App
         System.out.println(listaDoble.buscar("4"));
         System.out.println(listaDoble.buscar("1"));
 
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$ Cola $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
+        //Creación de la cola
+        MiCola<Integer> cola = new MiCola<>();
+
+        //Verificar si tiene elementos
+        System.out.println(cola.esVacia());
+
+        //Pruebas de Insersión
+        cola.encolarCola(1);
+        cola.encolarCola(2);
+        cola.encolarCola(3);
+        cola.encolarCola(4);
+        cola.encolarCola(5);
+
+        //Verificar si tiene elementos
+        System.out.println(cola.esVacia());
+
+        //Pruebas de Muestra de los Datos
+        System.out.println(cola);
+
+        //Prubas de Obtención de los Datos
+        System.out.println(cola.obtenerPrimerElemento());
+        System.out.println(cola.obtenerPrimerElemento());
+        System.out.println(cola.sacarPrimerElemento());
+        System.out.println(cola.sacarPrimerElemento());
+        System.out.println(cola.sacarPrimerElemento());
+
+        System.out.println(cola);
+
+        //Pruebas de Eliminación de Datos
+        cola.desencolarCabeza();
+        System.out.println(cola);
+
+        cola.desencolarCabeza();
+        System.out.println(cola);
+
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$ Bicola $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
+        //Creación de la cola
+        MiBicola<Integer> bicola = new MiBicola<>();
+
+        //Verificar si tiene elementos
+        System.out.println(bicola.esVacia());
+
+        //Pruebas de Insersión
+
+        bicola.encolarCola(3);
+        bicola.encolarCola(4);
+        bicola.encolarCola(5);
+        bicola.encolarCabeza(2);
+        bicola.encolarCabeza(1);
+        bicola.encolarCola(6);
+
+        //Verificar si tiene elementos
+        System.out.println(bicola.esVacia());
+
+        //Pruebas de Muestra de los Datos
+        System.out.println(bicola);
+
+        //Prubas de Obtención de los Datos
+        System.out.println(bicola.obtenerPrimerElemento());
+        System.out.println(bicola.obtenerUltimoElemento());
+        System.out.println(bicola.sacarPrimerElemento());
+        System.out.println(bicola.sacarPrimerElemento());
+        System.out.println(bicola.sacarUltimoElemento());
+
+        System.out.println(bicola);
+
+        //Pruebas de Eliminación de Datos
+        bicola.desencolarCabeza();
+        System.out.println(bicola);
+
+        bicola.desencolarCola();
+        System.out.println(bicola);
+
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$ Pila/Stack $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
+        //Creación de la cola
+        MiStack<Integer> stack = new MiStack<>();
+
+        //Verificar si tiene elementos
+        System.out.println(stack.esVacio());
+
+        //Pruebas de Insersión
+        stack.insertar(1);
+        stack.insertar(2);
+        stack.insertar(3);
+        stack.insertar(4);
+        stack.insertar(5);
+
+        //Verificar si tiene elementos
+        System.out.println(stack.esVacio());
+
+        //Pruebas de Muestra de los Datos
+        System.out.println(stack);
+
+        //Prubas de Obtención de los Datos
+        System.out.println(stack.obtenerCima());
+        System.out.println(stack.obtenerCima());
+        System.out.println(stack.sacarCima());
+        System.out.println(stack.sacarCima());
+        System.out.println(stack.sacarCima());
+
+        System.out.println(stack);
+
+        //Pruebas de Eliminación de Datos
+        stack.eliminarCima();
+        System.out.println(stack);
+
+        stack.eliminarCima();
+        System.out.println(stack);
     }
 }
