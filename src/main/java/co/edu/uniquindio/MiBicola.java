@@ -20,6 +20,25 @@ public class MiBicola<T> extends MiCola<T> {
         tamanio++;
     }
 
+    //TAD Obtener último elemento (sin eliminar)
+    public T obtenerCola() {
+        T elemento = null;
+        if(!esVacia()) {
+            elemento = cola.getElemento();
+        }
+        return elemento;
+    }
+
+    //TAD Sacar último elemento (eliminando el elemento)
+    public T sacarCola() {
+        T elemento = null;
+        if(!esVacia()) {
+            elemento = cola.getElemento();
+            desencolarCola();
+        }
+        return elemento;
+    }
+
     //TAD Quitar el último elemento
     public void desencolarCola() {
         if(!esVacia()) {
@@ -31,24 +50,5 @@ public class MiBicola<T> extends MiCola<T> {
             cola = actual;
             tamanio--;
         }
-    }
-
-    //TAD obtener primer elemento (sin eliminar)
-    public T obtenerUltimoElemento() {
-        T elemento = null;
-        if(!esVacia()) {
-            elemento = cola.getElemento();
-        }
-        return elemento;
-    }
-
-    //TAD obtener primer elemento (sin eliminar)
-    public T sacarUltimoElemento() {
-        T elemento = null;
-        if(!esVacia()) {
-            elemento = cola.getElemento();
-            desencolarCola();
-        }
-        return elemento;
     }
 }

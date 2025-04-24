@@ -48,8 +48,8 @@ public class MiCola<T> {
         tamanio++;
     }
 
-    //TAD obtener primer elemento (sin eliminar)
-    public T obtenerPrimerElemento() {
+    //TAD Obtener primer elemento (sin eliminar)
+    public T obtenerCabeza() {
         T elemento = null;
         if(!esVacia()) {
             elemento = cabeza.getElemento();
@@ -57,8 +57,8 @@ public class MiCola<T> {
         return elemento;
     }
 
-    //TAD obtener primer elemento (eliminando el elemento)
-    public T sacarPrimerElemento() {
+    //TAD Sacar primer elemento (eliminando el elemento)
+    public T sacarCabeza() {
         T elemento = null;
         if(!esVacia()) {
             elemento = cabeza.getElemento();

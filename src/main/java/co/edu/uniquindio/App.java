@@ -165,11 +165,11 @@ public class App
         System.out.println(cola);
 
         //Prubas de Obtención de los Datos
-        System.out.println(cola.obtenerPrimerElemento());
-        System.out.println(cola.obtenerPrimerElemento());
-        System.out.println(cola.sacarPrimerElemento());
-        System.out.println(cola.sacarPrimerElemento());
-        System.out.println(cola.sacarPrimerElemento());
+        System.out.println(cola.obtenerCabeza());
+        System.out.println(cola.obtenerCabeza());
+        System.out.println(cola.sacarCabeza());
+        System.out.println(cola.sacarCabeza());
+        System.out.println(cola.sacarCabeza());
 
         System.out.println(cola);
 
@@ -204,11 +204,11 @@ public class App
         System.out.println(bicola);
 
         //Prubas de Obtención de los Datos
-        System.out.println(bicola.obtenerPrimerElemento());
-        System.out.println(bicola.obtenerUltimoElemento());
-        System.out.println(bicola.sacarPrimerElemento());
-        System.out.println(bicola.sacarPrimerElemento());
-        System.out.println(bicola.sacarUltimoElemento());
+        System.out.println(bicola.obtenerCabeza());
+        System.out.println(bicola.obtenerCola());
+        System.out.println(bicola.sacarCabeza());
+        System.out.println(bicola.sacarCabeza());
+        System.out.println(bicola.sacarCola());
 
         System.out.println(bicola);
 
