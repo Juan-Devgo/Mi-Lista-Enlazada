@@ -28,18 +28,24 @@ public class MiListaDoblementeEnlazada<T> {
         return lista.toString();
     }
 
+    //TAD Verificar es vacía
+
+    public boolean esVacia() {
+        return cabeza == null;
+    }
+
     //TAD Insersión
     public void agregar(T elemento) {
         NodoDoble<T> nuevoNodo = new NodoDoble<>(elemento);
-        if(cabeza == null) {
-            cabeza = nuevoNodo;
+        if(!esVacia()) {
+            cola.setSiguiente(nuevoNodo);
+            nuevoNodo.setAnterior(cola);
             cola = nuevoNodo;
             tamanio++;
             return;
         }
 
-        cola.setSiguiente(nuevoNodo);
-        nuevoNodo.setAnterior(cola);
+        cabeza = nuevoNodo;
         cola = nuevoNodo;
         tamanio++;
     }
@@ -47,15 +53,16 @@ public class MiListaDoblementeEnlazada<T> {
     public void agregarAlInicio(T elemento) {
         NodoDoble<T> nuevoNodo = new NodoDoble<>(elemento);
 
-        if(cabeza == null) {
+        if(!esVacia()) {
+            nuevoNodo.setSiguiente(cabeza);
+            cabeza.setAnterior(nuevoNodo);
             cabeza = nuevoNodo;
-            cola = nuevoNodo;
             tamanio++;
             return;
         }
-        nuevoNodo.setSiguiente(cabeza);
-        cabeza.setAnterior(nuevoNodo);
+
         cabeza = nuevoNodo;
+        cola = nuevoNodo;
         tamanio++;
     }
 
@@ -81,7 +88,6 @@ public class MiListaDoblementeEnlazada<T> {
             nuevoNodo.setAnterior(actual.getAnterior());
             actual.setAnterior(nuevoNodo);
             nuevoNodo.setSiguiente(actual);
-
             tamanio++;
 
         } else {
@@ -91,19 +97,20 @@ public class MiListaDoblementeEnlazada<T> {
 
     //TAD Obtener
     public T obtener(int posicion) {
+
         T elemento = null;
 
-        if(posicion < tamanio && posicion >= 0) {
+        if(!esVacia()) {
+            if (posicion < tamanio && posicion >= 0) {
 
-            NodoDoble<T> actual = cabeza;
-
-            for(int i = 0; i < posicion; i++) {
-                actual = actual.getSiguiente();
+                NodoDoble<T> actual = cabeza;
+                for (int i = 0; i < posicion; i++) {
+                    actual = actual.getSiguiente();
+                }
+                elemento = actual.getElemento();
+            } else {
+                throw new IndexOutOfBoundsException();
             }
-
-            elemento = actual.getElemento();
-        } else {
-            throw new IndexOutOfBoundsException();
         }
 
         return elemento;
@@ -112,7 +119,7 @@ public class MiListaDoblementeEnlazada<T> {
     public T obtenerPrimero() {
         T elemento = null;
 
-        if(cabeza != null) {
+        if(!esVacia()) {
             elemento = cabeza.getElemento();
         }
 
@@ -122,7 +129,7 @@ public class MiListaDoblementeEnlazada<T> {
     public T obtenerUltimo() {
         T elemento = null;
 
-        if(cola != null) {
+        if(!esVacia()) {
             elemento = cola.getElemento();
         }
 
@@ -131,7 +138,7 @@ public class MiListaDoblementeEnlazada<T> {
 
     //TAD Eliminación
     public void eliminarPosicion(int posicion) {
-        if(tamanio > 0) {
+        if(!esVacia()) {
             if (posicion < tamanio && posicion >= 0) {
 
                 if(posicion == 0) {
@@ -160,7 +167,7 @@ public class MiListaDoblementeEnlazada<T> {
     }
 
     public void eliminar(T elemento) {
-        if(tamanio > 0) {
+        if(!esVacia()) {
 
             if(cabeza.getElemento().equals(elemento)) {
                 eliminarPrimero();
@@ -188,7 +195,7 @@ public class MiListaDoblementeEnlazada<T> {
     }
 
     public void eliminarPrimero() {
-        if(tamanio > 0) {
+        if(!esVacia()) {
             cabeza = cabeza.getSiguiente();
             cabeza.setAnterior(null);
             tamanio--;
@@ -196,7 +203,7 @@ public class MiListaDoblementeEnlazada<T> {
     }
 
     public void eliminarUltimo() {
-        if(tamanio > 0) {
+        if(!esVacia()) {
             cola = cola.getAnterior();
             cola.setSiguiente(null);
             tamanio--;
@@ -205,23 +212,24 @@ public class MiListaDoblementeEnlazada<T> {
 
     //TAD Buscar
     public boolean contiene(T elemento) {
+
         boolean contiene = false;
 
-        if(tamanio > 0) {
-            if(!cabeza.getElemento().equals(elemento)) {
+        if(!esVacia()) {
+            if(cabeza.getElemento().equals(elemento)) {
+
+                contiene = true;
+
+            } else {
 
                 NodoDoble<T> actual = cabeza;
                 while(actual.getSiguiente() != null) {
-
                     if(actual.getElemento().equals(elemento)) {
                         contiene = true;
                         break;
                     }
+                    actual = actual.getSiguiente();
                 }
-                actual = actual.getSiguiente();
-
-            } else {
-                contiene = true;
             }
         }
 
@@ -229,22 +237,24 @@ public class MiListaDoblementeEnlazada<T> {
     }
 
     public int buscar(T elemento) {
+
         int posicion = -1;
 
-        if(tamanio > 0) {
-            if(!cabeza.getElemento().equals(elemento)) {
+        if(!esVacia()) {
+            if(cabeza.getElemento().equals(elemento)) {
+
+                posicion = 0;
+
+            } else {
 
                 NodoDoble<T> actual = cabeza;
                 for(int i = 0; i < tamanio; i++) {
-
                     if(actual.getElemento().equals(elemento)) {
                         posicion = i;
                         break;
                     }
+                    actual = actual.getSiguiente();
                 }
-
-            } else {
-                posicion = 0;
             }
         }
 

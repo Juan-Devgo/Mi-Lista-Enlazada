@@ -27,11 +27,17 @@ public class MiLinkedList<T> {
         return lista.toString();
     }
 
+    //TAD Verificar es vacía
+
+    public boolean esVacia() {
+        return cabeza == null;
+    }
+
     //TAD Insersión
 
     public void agregar(T elemento) {
         Nodo<T> nuevoNodo = new Nodo<>(elemento);
-        if (cabeza != null) {
+        if (!esVacia()) {
             Nodo<T> nodoRecorrido = cabeza;
             while (nodoRecorrido.getSiguiente() != null) {
                 nodoRecorrido = nodoRecorrido.getSiguiente();
@@ -53,16 +59,19 @@ public class MiLinkedList<T> {
     }
 
     public void agregarEnPosicion(T elemento, int posicion) {
-        if(tamanio > posicion && posicion >= 0) {
-
-            Nodo<T> nuevoNodo = new Nodo<>(elemento);
+        if(posicion <= tamanio && posicion >= 0) {
 
             if(posicion == 0){
-                nuevoNodo.setSiguiente(cabeza);
-                cabeza = nuevoNodo;
-                tamanio++;
+                agregarAlInicio(elemento);
                 return;
             }
+
+            if(posicion == tamanio) {
+                agregar(elemento);
+                return;
+            }
+
+            Nodo<T> nuevoNodo = new Nodo<>(elemento);
 
             Nodo<T> nodoRecorrido = cabeza;
             for (int i = 0; i < posicion - 1; i++) {
@@ -82,15 +91,13 @@ public class MiLinkedList<T> {
 
         T elemento = null;
 
-        if(tamanio != 0) {
-            if (tamanio > posicion && posicion >= 0) {
+        if(!esVacia()) {
+            if (posicion < tamanio && posicion >= 0) {
 
                 Nodo<T> nodoRecorrido = cabeza;
-
                 for (int i = 0; i < posicion; i++) {
                     nodoRecorrido = nodoRecorrido.getSiguiente();
                 }
-
                 elemento = nodoRecorrido.getElemento();
 
             } else {
@@ -105,7 +112,7 @@ public class MiLinkedList<T> {
 
         T elemento = null;
 
-        if(tamanio != 0){
+        if(!esVacia()){
             elemento = cabeza.getElemento();
         }
 
@@ -116,28 +123,32 @@ public class MiLinkedList<T> {
 
         T elemento = null;
 
-        if(tamanio != 0) {
+        if(!esVacia()) {
 
             Nodo<T> nodoRecorrido = cabeza;
-
             while (nodoRecorrido.getSiguiente() != null) {
                 nodoRecorrido = nodoRecorrido.getSiguiente();
             }
-
             elemento = nodoRecorrido.getElemento();
         }
+
         return elemento;
     }
 
     //TAD Eliminación
 
     public void eliminar(int posicion) {
-        if(tamanio > 0) {
-            if (tamanio > posicion && posicion >= 0) {
+
+        if(!esVacia()) {
+            if (posicion < tamanio && posicion >= 0) {
 
                 if (posicion == 0) {
-                    cabeza = cabeza.getSiguiente();
-                    tamanio--;
+                    eliminarPrimero();
+                    return;
+                }
+
+                if (posicion == tamanio - 1) {
+                    eliminarUltimo();
                     return;
                 }
 
@@ -145,7 +156,6 @@ public class MiLinkedList<T> {
                 for (int i = 0; i < posicion - 1; i++) {
                     nodoRecorrido = nodoRecorrido.getSiguiente();
                 }
-
                 nodoRecorrido.setSiguiente(nodoRecorrido.getSiguiente().getSiguiente());
                 tamanio--;
 
@@ -156,11 +166,12 @@ public class MiLinkedList<T> {
     }
 
     public void eliminar(T elemento) {
-        if(tamanio > 0) {
+
+        if(!esVacia()) {
 
             if(cabeza.getElemento().equals(elemento)) {
-                cabeza = cabeza.getSiguiente();
-                tamanio--;
+                eliminarPrimero();
+                return;
             }
 
             Nodo<T> nodoRecorrido = cabeza;
@@ -172,25 +183,28 @@ public class MiLinkedList<T> {
                 }
                 nodoRecorrido = nodoRecorrido.getSiguiente();
             }
-
         }
     }
 
     public void eliminarPrimero() {
-        if(tamanio > 0) {
+        if(!esVacia()) {
             cabeza = cabeza.getSiguiente();
             tamanio--;
         }
     }
 
     public void eliminarUltimo() {
-        if(tamanio > 0) {
+        if(!esVacia()) {
+
+            if(cabeza.getSiguiente() == null) {
+                eliminarPrimero();
+                return;
+            }
 
             Nodo<T> nodoRecorrido = cabeza;
             while (nodoRecorrido.getSiguiente().getSiguiente() != null) {
                 nodoRecorrido = nodoRecorrido.getSiguiente();
             }
-
             nodoRecorrido.setSiguiente(null);
             tamanio--;
         }
@@ -201,7 +215,7 @@ public class MiLinkedList<T> {
     public int buscar(T elemento) {
 
         int pos = -1;
-        if(tamanio > 0){
+        if(!esVacia()){
 
             Nodo<T> nodoRecorrido = cabeza;
             for (int i = 0; i < tamanio; i++) {
@@ -221,22 +235,18 @@ public class MiLinkedList<T> {
     public boolean contiene(T elemento) {
 
         boolean contiene = false;
-        if(tamanio > 0) {
+        if(!esVacia()) {
 
             if (cabeza.getElemento().equals(elemento)) {
-
                 contiene = true;
-
             } else {
+
                 Nodo<T> nodoRecorrido = cabeza;
-
                 while (nodoRecorrido.getSiguiente() != null) {
-
                     if (nodoRecorrido.getElemento().equals(elemento)) {
                         contiene = true;
                         break;
                     }
-
                     nodoRecorrido = nodoRecorrido.getSiguiente();
                 }
             }
